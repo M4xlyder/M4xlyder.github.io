@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>❤️ San Valentín ❤️</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:linear-gradient(to top,#ffe0e6,#ffc1d3);
+  min-height:100vh;
+  overflow:hidden;
+  font-family:'Poppins',sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+}
+
+/* BOTÓN CORAZÓN */
+.heart-button{
+  position:relative;
+  width:200px;
+  height:180px;
+  cursor:pointer;
+  z-index:10;
+  transition:.3s;
+}
+
+.heart-button:hover{
+  transform:scale(1.1);
+}
+
+.heart-shape{
+  width:200px;
+  height:200px;
+  background:linear-gradient(135deg,#ff1744,#f50057);
+  transform:rotate(-45deg);
+  animation:beat 1.5s infinite;
+  position:relative;
+}
+
+@keyframes beat{
+  0%,100%{transform:rotate(-45deg) scale(1);}
+  50%{transform:rotate(-45deg) scale(1.1);}
+}
+
+.heart-shape:before,
+.heart-shape:after{
+  content:"";
+  position:absolute;
+  width:200px;
+  height:200px;
+  background:inherit;
+  border-radius:50%;
+}
+
+.heart-shape:before{ top:-100px; left:0; }
+.heart-shape:after{ left:100px; top:0; }
+
+/* CONTENIDO */
+.content{
+  opacity:0;
+  transition:1s;
+  position:absolute;
+  width:100%;
+  height:100%;
+  overflow-y:auto;
+}
+
+.content.show{ opacity:1; }
+
+/* FOTO */
+.heart-photo{
+  position:absolute;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  width:250px;
+  height:220px;
+  background:url("foto.jpg") center/cover no-repeat;
+  clip-path: path("M 125 200 C 20 120, 0 60, 60 30 C 100 10, 125 40, 125 40 C 125 40, 150 10, 190 30 C 250 60, 230 120, 125 200 Z");
+  box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+h1{
+  position:absolute;
+  top:260px;
+  width:100%;
+  text-align:center;
+  color:#c62828;
+  font-size:28px;
+}
+
+/* POEMA */
+.poem-container{
+  position:absolute;
+  top:320px;
+  left:50%;
+  transform:translateX(-50%);
+  width:90%;
+  max-width:700px;
+  max-height:calc(100vh - 360px);
+  overflow-y:auto;
+  background:rgba(255,255,255,0.95);
+  padding:30px 40px;
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+  z-index:5;
+  margin-bottom:40px;
+}
+
+.poem-container h2{
+  text-align:center;
+  color:#c62828;
+  font-size:22px;
+  margin-bottom:25px;
+}
+
+.poem-container p{
+  margin-bottom:20px;
+  line-height:1.9;
+  color:#5d4037;
+  font-size:15px;
+}
+
+.poem-container .intro{
+  font-style:italic;
+  font-size:18px;
+  text-align:center;
+  color:#880e4f;
+}
+
+.poem-container .highlight{
+  text-align:center;
+  font-size:16px;
+}
+
+.poem-container .question{
+  text-align:center;
+  font-weight:600;
+  font-size:18px;
+  margin-top:30px;
+}
+
+.poem-container .final-question{
+  text-align:center;
+  font-size:20px;
+  font-weight:bold;
+  color:#c62828;
+}
+
+.poem-container .signature{
+  text-align:center;
+  margin-top:30px;
+  font-style:italic;
+  font-size:16px;
+}
+
+/* BOTÓN MÚSICA */
+.music-button{
+  position:fixed;
+  top:20px;
+  right:20px;
+  width:60px;
+  height:60px;
+  background:linear-gradient(135deg,#ff1744,#f50057);
+  border-radius:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
+  z-index:100;
+  box-shadow:0 5px 15px rgba(255,23,68,0.4);
+  transition:transform 0.3s;
+  opacity:0;
+  pointer-events:none;
+}
+
+.music-button.show{
+  opacity:1;
+  pointer-events:all;
+}
+
+.music-button.playing .music-icon{
+  animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.2);}
+}
+
+.music-icon{
+  font-size:28px;
+  color:white;
+}
+
+/* ÁRBOLES */
+.tree{
+  position:fixed;
+  bottom:0;
+  z-index:1;
+}
+
+.tree.left{ left:40px; }
+.tree.right{ right:40px; }
+
+.trunk{
+  width:60px;
+  height:250px;
+  background:linear-gradient(to right,#8b5a2b,#5c3b1e);
+  border-radius:10px;
+  margin:0 auto;
+}
+
+.crown{
+  position:absolute;
+  bottom:200px;
+  left:50%;
+  transform:translateX(-50%);
+  width:300px;
+  height:260px;
+}
+
+.mini-heart{
+  position:absolute;
+  transform:rotate(-45deg);
+}
+
+.mini-heart:before,
+.mini-heart:after{
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:inherit;
+  border-radius:50%;
+}
+
+.mini-heart:before{ top:-50%; left:0; }
+.mini-heart:after{ left:50%; top:0; }
+
+.mini-heart:nth-child(3n){background:#ff1744;}
+.mini-heart:nth-child(4n){background:#ff6b9d;}
+.mini-heart:nth-child(5n){background:#ff4081;}
+.mini-heart:nth-child(6n){background:#f06292;}
+.mini-heart:nth-child(7n){background:#ff80ab;}
+</style>
+</head>
+
+<body>
+
+<audio id="backgroundMusic" loop>
+  <source src="Amor Completo - Mon Laferte.mp3" type="audio/mpeg">
+</audio>
+
+<div class="music-button" id="musicButton">
+  <div class="music-icon">🎵</div>
+</div>
+
+<div class="heart-button" id="heartButton">
+  <div class="heart-shape"></div>
+</div>
+
+<div class="content" id="content">
+
+  <div class="heart-photo"></div>
+  <h1>❤️ ¿Quieres ser mi San Valentín? ❤️</h1>
+
+  <div class="poem-container">
+    <h2>Para mi amada Akeny,<br>mi San Valentín eterno</h2>
+    <p class="intro">Amor mío…</p>
+
+    <p>Quién diría que todo empezó un día cualquiera, cuando tu mamá te llevó a aquella tienda de Entel y el destino decidió cruzar nuestras miradas.</p>
+
+    <p>Éramos dos desconocidos, dos almas sin confianza, tanto que cuando te di un beso para saludarte te quedaste tiesa… y yo sin saber que ese pequeño instante sería el inicio de mi historia favorita.</p>
+
+    <p>Entre risas, consejos y conversaciones infinitas, entre cloro y pisos brillantes aunque mis ojos se pusieran rojos, fuimos limpiando la tienda… y sin darnos cuenta, también fuimos limpiando nuestros miedos.</p>
+
+    <p>Nunca olvidaré nuestra “primera cita” no oficial en Papa Johns, cuando fuimos por tu maquillaje y terminamos hablando por horas mientras la pizza se enfriaba y dos parejas detrás de nosotros se besaban como si el mundo se fuera a acabar.</p>
+
+    <p>Y ese Uber… que nos shipeaba, que decía que terminaríamos juntos. Qué ironía más hermosa, porque al final tuvo toda la razón.</p>
+
+    <p>Después vino mi despedida en Rústica. Ese video que grabaste, esa mirada tuya… esa forma en que tus ojos me decían lo que tus labios aún callaban. Ahí supe que eras tú.</p>
+
+    <p>Nos distanciamos, pero el amor verdadero no se pierde, solo espera.</p>
+
+    <p>Volvimos a hablar, a jironear sin rumbo, a ver películas en mi casa… y esa noche en que quise declararme y mis nervios me traicionaban, fuiste tú quien me dio el valor. Esa noche fue mágica, porque empezó nuestro “para siempre”.</p>
+
+    <p>Un 8 de diciembre del 2025 decidimos ser oficialmente nosotros. Y aunque hubo nueve días de ausencia, me bastaron para entender que la vida sin ti no sabe igual.</p>
+
+    <p>Aprendí que te amo con todo mi corazón — sí, este corazón de pollo — pero que late fuerte cuando sonríes.</p>
+
+    <p class="highlight"><strong>Akeny, yo te elijo. Hoy, mañana y siempre. Te elijo a ti.</strong></p>
+
+    <p>Este 14 de febrero será nuestro primer San Valentín juntos… y no quiero que sea solo una fecha más.</p>
+
+    <p>Te pregunto:</p>
+
+    <p class="final-question">¿Quieres ser mi San Valentín hoy, mañana y todos los 14 de febrero que la vida nos regale?</p>
+
+    <p class="signature">Te amo con todo mi ser, mi hermosa Akeny. 💌✨</p>
+  </div>
+
+  <div class="tree left">
+    <div class="trunk"></div>
+    <div class="crown" id="crownLeft"></div>
+  </div>
+
+  <div class="tree right">
+    <div class="trunk"></div>
+    <div class="crown" id="crownRight"></div>
+  </div>
+
+</div>
+
+<script>
+const heartButton=document.getElementById("heartButton");
+const content=document.getElementById("content");
+const music=document.getElementById("backgroundMusic");
+const musicButton=document.getElementById("musicButton");
+let isPlaying=false;
+
+music.volume=0.7;
+
+function createHeart(x,y,size){
+  const heart=document.createElement("div");
+  heart.classList.add("mini-heart");
+  heart.style.left=x+"px";
+  heart.style.top=y+"px";
+  heart.style.width=size+"px";
+  heart.style.height=size+"px";
+  return heart;
+}
+
+function generateTree(id){
+  const crown=document.getElementById(id);
+  for(let i=0;i<700;i++){
+    let x=Math.random()*300;
+    let y=Math.random()*260;
+    let nx=(x-150)/150;
+    let ny=(y-130)/130;
+    let f=Math.pow(nx*nx+ny*ny-1,3)-nx*nx*ny*ny*ny;
+    if(f<=0){
+      let size=Math.random()*10+6;
+      crown.appendChild(createHeart(x,y,size));
+    }
+  }
+}
+
+function playMusic(){
+  music.play().then(()=>{
+    musicButton.classList.add("playing");
+    musicButton.querySelector(".music-icon").textContent="🎶";
+    isPlaying=true;
+  });
+}
+
+function toggleMusic(){
+  if(isPlaying){
+    music.pause();
+    musicButton.classList.remove("playing");
+    musicButton.querySelector(".music-icon").textContent="🎵";
+    isPlaying=false;
+  }else{
+    playMusic();
+  }
+}
+
+heartButton.onclick=()=>{
+  heartButton.style.display="none";
+  content.classList.add("show");
+  musicButton.classList.add("show");
+  generateTree("crownLeft");
+  generateTree("crownRight");
+  playMusic();
+};
+
+musicButton.onclick=toggleMusic;
+</script>
+
+</body>
+</html>
